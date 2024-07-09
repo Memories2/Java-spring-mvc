@@ -25,6 +25,14 @@ public class UserController {
         model.addAttribute("hoidanit", "from controller width model");
         return "hello";
     }
+
+    @RequestMapping("/admin/user") // day la ten mien
+    public String getUserPage(Model model) {
+        String test = this.userService.handleHello();
+        model.addAttribute("eric", test);
+        model.addAttribute("hoidanit", "from controller width model");
+        return "admin/user/create";
+    }
 }
 
 // @RestController
