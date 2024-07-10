@@ -23,7 +23,7 @@
                                 <hr />
                                 <form:form
                                  method="post" 
-                                 action="/admin/user/create1"
+                                 action="/admin/user/create"
                                  modelAttribute ="newUser"
                                  >
                                     <div class="mb-3">

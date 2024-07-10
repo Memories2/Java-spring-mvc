@@ -11,6 +11,8 @@ import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.UserRepository;
 import vn.hoidanit.laptopshop.service.UserService;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class UserController {
@@ -31,17 +33,23 @@ public class UserController {
         return "hello";
     }
 
-    @RequestMapping("/admin/user") // day la ten mien // Ở đây chúng ta đang sử dụng method get
+    @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
+        return "admin/user/create";
+    }
+    
+
+    @RequestMapping("/admin/user/create") // day la ten mien // Ở đây chúng ta đang sử dụng method get
+    public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         model.addAttribute("hoidanit", "from controller width model");
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST) // đây là tên miền và ta đang nhận form
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST) // đây là tên miền và ta đang nhận form
                                                                                 // // với menthod = POST
     public String createUser(Model model, @ModelAttribute("newUser") User hoidanit) {
-        this.userService.handleSaveUser(hoidanit);
+        this.userService.handleSaveUser(hoidanit); // 
         return "hello";
     }
 
