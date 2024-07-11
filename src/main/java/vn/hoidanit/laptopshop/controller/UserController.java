@@ -39,9 +39,9 @@ public class UserController {
 
     @RequestMapping("/admin/user/{id}") // hien thi chi tiet nguoi dung
     public String getUserDetailPage(Model model, @PathVariable long id) {
-        System.out.println("check path id = " + id);
-
-        model.addAttribute("id",id); // có vẻ như tác dụng của model là truyền các biến từ sever qua cho web tĩnh - truyền id từ controller qua view
+        User user = this.userService.getUserById(id);
+        model.addAttribute("user",user); // có vẻ như tác dụng của model là truyền các biến từ sever qua cho web tĩnh - truyền id từ controller qua view
+        model.addAttribute("id",id);
         return "admin/user/show";
     }
 
