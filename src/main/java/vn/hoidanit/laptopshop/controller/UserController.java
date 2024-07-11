@@ -40,12 +40,27 @@ public class UserController {
     @RequestMapping("/admin/user/{id}") // hien thi chi tiet nguoi dung
     public String getUserDetailPage(Model model, @PathVariable long id) {
         User user = this.userService.getUserById(id);
-        model.addAttribute("user",user); // có vẻ như tác dụng của model là truyền các biến từ sever qua cho web tĩnh - truyền id từ controller qua view
-        model.addAttribute("id",id);
+        model.addAttribute("user", user); // có vẻ như tác dụng của model là truyền các biến từ sever qua cho web tĩnh -
+                                          // truyền id từ controller qua view
+        model.addAttribute("id", id);
         return "admin/user/show";
     }
 
-    @RequestMapping("/admin/user/create") // day la ten mien // Ở đây chúng ta đang sử dụng method get
+    @RequestMapping("/admin/user/update/{id}") // Get update nguoi dung
+    public String getUpdateUserPage(Model model) {
+
+        model.addAttribute("newUser", new User());
+        return "admin/user/update";
+    }
+
+     @RequestMapping(value = "/admin/user/update/{id}", method = RequestMethod.POST)  // save update nguoi dung
+    public String updateUser(Model model, @ModelAttribute("newUser") User hoidanit) {
+        this.userService.handleSaveUser(hoidanit); //
+        return "redirect:/admin/user";
+    }
+
+
+    @RequestMapping("/admin/user/create") // day la ten mien // Ở đây chúng ta đang sử dụng method get - tao moi user
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
