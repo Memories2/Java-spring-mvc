@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,12 +30,19 @@ public class UserController {
         return "hello";
     }
 
-
     @RequestMapping("/admin/user") // hien thi danh sach nguoi dung
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUser();
         model.addAttribute("users1", users);
         return "admin/user/table-user";
+    }
+
+    @RequestMapping("/admin/user/{id}") // hien thi chi tiet nguoi dung
+    public String getUserDetailPage(Model model, @PathVariable long id) {
+        System.out.println("check path id = " + id);
+
+        model.addAttribute("id",id); // có vẻ như tác dụng của model là truyền các biến từ sever qua cho web tĩnh - truyền id từ controller qua view
+        return "admin/user/show";
     }
 
     @RequestMapping("/admin/user/create") // day la ten mien // Ở đây chúng ta đang sử dụng method get

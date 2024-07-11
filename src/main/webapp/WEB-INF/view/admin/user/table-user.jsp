@@ -40,14 +40,12 @@
                                             <td>${user.email}</td>
                                             <td>${user.fullName}</td>
                                             <td>
-                                                <button class="btn btn-success">View</button>
+                                                <a href="/admin/user/${user.id}" class="btn btn-success">View</a>  <!--Mặc định của thẻ a là method get, gửi một request cho sever -->
                                                 <button class="btn btn-warning  mx-2">Update</button>
                                                 <button class="btn btn-danger">Delete</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
-                                   
-                                    
                                 </tbody>
                             </table>
                         </div>
