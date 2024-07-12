@@ -17,6 +17,11 @@ public class User {
     private String fullName;
     private String address;
     private String phone;
+
+    private String avatar;
+
+    //roleid
+
     public long getId() {
         return id;
     }
@@ -53,12 +58,19 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
+    public String getAvatar() {
+        return avatar;
+    }
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
-                + ", address=" + address + ", phone=" + phone + "]";
+                + ", address=" + address + ", phone=" + phone + ", avatar=" + avatar + "]";
     }
+    
+    
 
    
     
