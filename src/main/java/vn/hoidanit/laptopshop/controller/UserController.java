@@ -4,16 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.*;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -56,21 +52,34 @@ public class UserController {
         return "admin/user/update";
     }
 
-
-   @PostMapping("/admin/user/update")
-   public String postUpdateUser(Model model, @ModelAttribute("newUser") User hoidanit) { // post update nguoi dung
-      User currentUser = this.userService.getUserById(hoidanit.getId());
-      if(currentUser != null){
+    @PostMapping("/admin/user/update")
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User hoidanit) { // post update nguoi dung
+        User currentUser = this.userService.getUserById(hoidanit.getId());
+        if (currentUser != null) {
             currentUser.setAddress(hoidanit.getAddress());
             currentUser.setFullName(hoidanit.getFullName());
             currentUser.setPhone(hoidanit.getPhone());
             this.userService.handleSaveUser(currentUser);
-      }
-       
-       return "redirect:/admin/user";
-   }
-   
+        }
 
+        return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @PathVariable long id) { // GET Xoa nguoi dung
+        model.addAttribute("id", id);
+        // User user = new User();
+        // user.setId(id);
+        // model.addAttribute("newUser", user); cach 1
+        model.addAttribute("newUser", new User());
+        return "admin/user/delete";
+    }
+
+   @PostMapping("/admin/user/delete")
+   public String postDeleteUser(Model model, @ModelAttribute("newUser") User eric) {  //POST Xoa nguoi dung
+        this.userService.deleteAUser(eric.getId());
+        return "redirect:/admin/user";
+   }
 
     @RequestMapping("/admin/user/create") // day la ten mien // Ở đây chúng ta đang sử dụng method get - tao moi user
     public String getCreateUserPage(Model model) {

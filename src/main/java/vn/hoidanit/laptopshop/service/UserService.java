@@ -33,5 +33,8 @@ public class UserService {
         return this.userRepository.findOneById(id);
     }
 
+    public void deleteAUser(long id){
+        this.userRepository.deleteById(id);
+    }
 
 }
