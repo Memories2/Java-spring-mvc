@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import jakarta.validation.Valid;
 
 
@@ -103,13 +104,14 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/create")              
-    public String createUser(Model model, @ModelAttribute("newUser") @Valid User hoidanit,BindingResult newUserBindingResult, @RequestParam("hoidanitFile") MultipartFile file ) {
-        
+    public String createUser(Model model, @ModelAttribute("newUser") @Valid User hoidanit,BindingResult newUserBindingResult, @RequestParam("hoidanitFile") MultipartFile file ) {     
          //validate
+         
         List<FieldError> errors = newUserBindingResult.getFieldErrors();
         for(FieldError error : errors){
             System.out.println(error.getField() + " - " + error.getDefaultMessage());
         }
+        
         if(newUserBindingResult.hasErrors()){
             return "/admin/user/create";
         }
@@ -122,7 +124,7 @@ public class UserController {
         hoidanit.setPassword(hashPassWord);
         hoidanit.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
         //save
-        this.userService.handleSaveUser(hoidanit); 
+        //this.userService.handleSaveUser(hoidanit); 
         return "redirect:/admin/user";
     }
 

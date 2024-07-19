@@ -13,14 +13,14 @@
                 <title>Create Product - Hỏi Dân IT</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                <script> 
-                    $(document).ready(() => { 
-                        const avatarFile = $("#avatarFile"); 
-                        avatarFile.change(function (e) { 
-                            const imgURL = URL.createObjectURL(e.target.files[0]); 
-                            $("#avatarPreview").attr("src", imgURL); 
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
                             $("#avatarPreview").css({ "display": "block" });
-                         }); 
+                        });
                     }); 
                 </script>
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -39,39 +39,71 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Product</h1>
+                                <h1 class="mt-4">Create Product</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Product</li>
+                                    <li class="breadcrumb-item active">Create Product</li>
                                 </ol>
                                 <div class="mt-5">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
                                             <h3>Create a Product</h3>
                                             <hr />
-                                            <form:form method="post" action="/admin/user/create"
+                                            <form:form method="post" action="/admin/product/create"
                                                 modelAttribute="newProduct" class="row" enctype="multipart/form-data">
+                                                <c:set var="errorsName">
+                                                    <form:errors path="name" cssClass="invalid-feedback" />
+                                                </c:set>
+
+                                                <c:set var="errorsPrice">
+                                                    <form:errors path="price" cssClass="invalid-feedback" />
+                                                </c:set>
+
+                                                <c:set var="errorsDetailDescription">
+                                                    <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                                                </c:set>
+
+                                                <c:set var="errorsShortDescription">
+                                                    <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                                                </c:set>
+
+                                                <c:set var="errorsQuantity">
+                                                    <form:errors path="quantity" cssClass="invalid-feedback" />
+                                                </c:set>
+
+
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Name:</label>
-                                                    <form:input type="Name" class="form-control" path="name" />
+                                                    <form:input type="Name"
+                                                        class="form-control ${not empty errorsName ? 'is-invalid' : ''} "
+                                                        path="name" />
+                                                    ${errorsName}
                                                 </div>
+
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Price</label>
-                                                    <form:input type="Price" class="form-control" path="price" />
+                                                    <form:input type="Price" class="form-control ${not empty errorsPrice ? 'is-invalid':''}" path="price" />
+                                                    ${errorsPrice}
                                                 </div>
+
                                                 <div class="mb-3 col-12">
                                                     <label class="form-label">Detail description:</label>
-                                                    <form:input type="text" class="form-control" path="detailDesc" />
+                                                    <form:input type="text" class="form-control ${not empty errorsDetailDescription ? 'is-invalid':''}" path="detailDesc" />
+                                                    ${errorsDetailDescription}
                                                 </div>
+
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Short description:</label>
-                                                    <form:input type="text" class="form-control" path="shortDesc" />
+                                                    <form:input type="text" class="form-control ${not empty errorsShortDescription ? 'is-invalid':''}" path="shortDesc" />
+                                                    ${errorsShortDescription}
                                                 </div>
+
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Quantity:</label>
-                                                    <form:input type="quantity" class="form-control" path="quantity" />
+                                                    <form:input type="quantity" class="form-control ${not empty errorsQuantity ? 'is-invalid':''}" path="quantity" />
+                                                    ${errorsQuantity}
                                                 </div>
-                                           
+
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Factory:</label>
                                                     <form:select class="form-select" path="factory">
@@ -88,8 +120,10 @@
                                                     <label class="form-label">Target:</label>
                                                     <form:select class="form-select" path="target">
                                                         <form:option value="GAMING">GAMING</form:option>
-                                                        <form:option value="SINHVIEN-VANPHONG">Sinh Viên - Văn Phòng</form:option>
-                                                        <form:option value="THIET-KE-DO-HOA">Thiết kế đồ họa</form:option>
+                                                        <form:option value="SINHVIEN-VANPHONG">Sinh Viên - Văn Phòng
+                                                        </form:option>
+                                                        <form:option value="THIET-KE-DO-HOA">Thiết kế đồ họa
+                                                        </form:option>
                                                         <form:option value="MONG-NHE">Mỏng Nhẹ</form:option>
                                                         <form:option value="DOANH-NHANH">Doanh Nhân</form:option>
                                                     </form:select>
@@ -98,7 +132,7 @@
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label for="avatarFile" class="form-label">Image:</label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpeg" name="hoidanitFile"/>
+                                                        accept=".png, .jpg, .jpeg" name="hoidanitFile" />
                                                 </div>
                                                 <div class="col-12 mb-3">
                                                     <img style="max-height: 250px; display: none;" alt="avatar preview"
