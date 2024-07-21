@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import vn.hoidanit.laptopshop.domain.User;
 import java.util.List;
 
-
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User save(User hoidanit);
 

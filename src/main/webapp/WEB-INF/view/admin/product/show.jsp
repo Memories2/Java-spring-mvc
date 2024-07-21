@@ -52,12 +52,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!-- <c:forEach var="user" items="${users1}">
+                                                <c:forEach var="product" items="${products1}">
                                                     <tr>
-                                                        <th>${user.id}</th>
-                                                        <td>${user.email}</td>
-                                                        <td>${user.fullName}</td>
-                                                        <td>${user.role.name}</td>
+                                                        <th>${product.id}</th>
+                                                        <th>${product.name}</th>
+                                                        <td>${product.price}</td>
+                                                        <td>${product.factory}</td>
+                                                     
                                                         <td>
                                                             <a href="/admin/user/${user.id}"
                                                                 class="btn btn-success">View</a>
@@ -67,7 +68,7 @@
                                                                 class="btn btn-danger  mx-2">Delete</a>
                                                         </td>
                                                     </tr>
-                                                </c:forEach> -->
+                                                </c:forEach> 
                                             </tbody>
                                         </table>
                                     </div>
