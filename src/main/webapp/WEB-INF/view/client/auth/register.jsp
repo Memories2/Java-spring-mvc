@@ -91,6 +91,7 @@
                                                                 Create Account
                                                             </button>
                                                         </div>
+                                                    </div>
                                                 </form:form>
                                             </div>
                                             <div class="card-footer text-center py-3">
