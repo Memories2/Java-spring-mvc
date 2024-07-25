@@ -29,6 +29,11 @@
                                             <div class="card-body">
                                                 <form:form method="post" action="/register"
                                                     modelAttribute="registerUser">
+
+                                                    <c:set var="errorfirstName">
+                                                        <form:errors path="firstName" cssClass="invalid-feedback" />
+                                                    </c:set>
+
                                                     <c:set var="errorPassword">
                                                         <form:errors path="confirmPassword"
                                                             cssClass="invalid-feedback" />
@@ -41,10 +46,13 @@
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <div class="form-floating mb-3 mb-md-0">
-                                                                <form:input class="form-control" id="inputFirstName"
-                                                                    type="text" placeholder="Enter your first name"
+                                                                <form:input
+                                                                    class="form-control ${not empty errorfirstName ? 'is-invalid':'' }"
+                                                                    id="inputFirstName" type="text"
+                                                                    placeholder="Enter your first name"
                                                                     path="firstName" />
                                                                 <label for="inputFirstName">First name</label>
+                                                                ${errorfirstName}
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -70,7 +78,7 @@
                                                                     class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
                                                                     type="password" placeholder="Create a password"
                                                                     path="password" />
-                                                                <label>Password</label>
+                                                                <label>Password</label> 
                                                                 ${errorPassword}
                                                             </div>
                                                         </div>
