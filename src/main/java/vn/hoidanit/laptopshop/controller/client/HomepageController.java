@@ -16,14 +16,9 @@ import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UserService;
 
-
-
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-
-
-
 
 @Controller
 public class HomepageController {
@@ -32,16 +27,14 @@ public class HomepageController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    public HomepageController(ProductService productService,UserService userService,PasswordEncoder passwordEncoder) {
+    public HomepageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder) {
         this.productService = productService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
-
-
     @GetMapping("/")
-    public String getHomePage(Model model){
+    public String getHomePage(Model model) {
         List<Product> products = productService.getAllProduct();
         model.addAttribute("products", products);
         return "client/homepage/show";
@@ -52,12 +45,13 @@ public class HomepageController {
         model.addAttribute("registerUser", new RegisterDTO());
         return "client/auth/register";
     }
-    
+
     @PostMapping("/register")
-    public String handleRegister(Model model, @ModelAttribute("registerUser") @Valid RegisterDTO registerDTO,BindingResult bindingResult ) {
-        
+    public String handleRegister(Model model, @ModelAttribute("registerUser") @Valid RegisterDTO registerDTO,
+            BindingResult bindingResult) {
+
         List<FieldError> errors = bindingResult.getFieldErrors();
-        for (FieldError error: errors){
+        for (FieldError error : errors) {
             System.out.println(">>>" + error.getField() + " - " + error.getDefaultMessage());
         }
 
@@ -65,23 +59,27 @@ public class HomepageController {
             return "client/auth/register";
         }
 
-
         User user = this.userService.registerDTOtoUser(registerDTO);
         String hashPassWord = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(hashPassWord);
         // rolde la mot doi tuong
         user.setRole(this.userService.getRoleByName("USER"));
-        //save
+        // save
         this.userService.handleSaveUser(user);
 
         return "redirect:/login";
     }
-    
-    
+
     @GetMapping("/login")
-    public String getLoginPage(Model model){
-        
+    public String getLoginPage(Model model) {
+
         return "client/auth/login";
+    }
+
+    @GetMapping("/access-deny")
+    public String getDenyPage(Model model) {
+
+        return "client/auth/deny";
     }
 
 }
