@@ -88,7 +88,7 @@ public class UserController {
         // user.setId(id);
         // model.addAttribute("newUser", user); cach 1
         model.addAttribute("newUser", new User());
-        return "/admin/user/delete";
+        return "admin/user/delete";
     }
 
     @PostMapping("/admin/user/delete")
