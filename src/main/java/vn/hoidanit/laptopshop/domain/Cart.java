@@ -15,13 +15,12 @@ import jakarta.validation.constraints.Min;
 @Entity
 @Table(name = "carts")
 public class Cart {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Min(value = 0)
-    private long sum;
+    private int sum;
 
     // one to one
     @OneToOne()
@@ -30,7 +29,7 @@ public class Cart {
 
     // cart_detail one to many
     @OneToMany(mappedBy = "cart")
-    List<CartDetail> cart_detail_id;
+    List<CartDetail> cartDetails;
 
     public long getId() {
         return id;
@@ -40,20 +39,12 @@ public class Cart {
         this.id = id;
     }
 
-    public long getSum() {
+    public int getSum() {
         return sum;
     }
 
-    public void setSum(long sum) {
+    public void setSum(int sum) {
         this.sum = sum;
-    }
-
-    public List<CartDetail> getCart_detail_id() {
-        return cart_detail_id;
-    }
-
-    public void setCart_detail_id(List<CartDetail> cart_detail_id) {
-        this.cart_detail_id = cart_detail_id;
     }
 
     public User getUser() {
@@ -64,6 +55,12 @@ public class Cart {
         this.user = user;
     }
 
+    public List<CartDetail> getCartDetails() {
+        return cartDetails;
+    }
    
+    public void setCartDetails(List<CartDetail> cartDetails) {
+        this.cartDetails = cartDetails;
+    }
 
 }

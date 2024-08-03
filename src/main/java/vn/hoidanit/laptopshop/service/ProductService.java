@@ -76,7 +76,7 @@ public class ProductService {
                 cd.setQuantity(1);
                 this.cartDetailRepository.save(cd);
                 // update cart sum
-                long s = cart.getSum() + 1;
+                int s = cart.getSum() + 1;
                 cart.setSum(s);
                 this.cartRepository.save(cart);
                 session.setAttribute("sum", s);
@@ -89,5 +89,10 @@ public class ProductService {
         }
 
     }
+
+    public Cart fetchByUser(User user){
+        return this.cartRepository.findByUser(user);
+    }
+
 
 }
