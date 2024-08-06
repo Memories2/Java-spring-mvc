@@ -55,6 +55,7 @@ public class UserController {
 
     @RequestMapping("/admin/user/{id}") // hien thi chi tiet nguoi dung
     public String getUserDetailPage(Model model, @PathVariable long id) {
+
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user); // có vẻ như tác dụng của model là truyền các biến từ sever qua cho web tĩnh -
                                           // truyền id từ controller qua view

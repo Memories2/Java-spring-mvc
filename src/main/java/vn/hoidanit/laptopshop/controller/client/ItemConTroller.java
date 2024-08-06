@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -64,7 +65,7 @@ public class ItemConTroller {
 
         // lay Cartdetails tu cart
 
-        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>(): cart.getCartDetails();
+        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
 
         double totalPrice = 0;
         for (CartDetail cartDetail : cartDetails) {
@@ -75,6 +76,14 @@ public class ItemConTroller {
         model.addAttribute("totalPrice", totalPrice);
 
         return "client/cart/show";
+    }
+
+    @PostMapping("/delete-cart-product/{id}")
+    public String deleteCartDetail(@PathVariable long id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long cartDetailId = id;
+        this.productService.handleRemoveCartDetail(cartDetailId, session);
+        return "redirect:/cart";
     }
 
 }

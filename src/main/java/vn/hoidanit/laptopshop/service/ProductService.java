@@ -11,6 +11,7 @@ import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -92,6 +93,33 @@ public class ProductService {
 
     public Cart fetchByUser(User user){
         return this.cartRepository.findByUser(user);
+    }
+
+    public void handleRemoveCartDetail(long cartDetailId, HttpSession session){
+        Optional<CartDetail> cartDetaiOptional = this.cartDetailRepository.findById(cartDetailId);
+        if(cartDetaiOptional.isPresent()){
+            CartDetail cartDetail = cartDetaiOptional.get();
+            Cart currentCart = cartDetail.getCart();
+
+            //delete CardDetail
+            this.cartDetailRepository.deleteById(cartDetailId);;
+
+            //update Cart
+            if(currentCart.getSum()>1){
+                int s = currentCart.getSum() - 1;
+                currentCart.setSum(s);
+
+                //update cho session
+                session.setAttribute("sum", s);
+                
+                // save cart 
+                this.cartRepository.save(currentCart);
+            }else{
+                //dele cart sum = 1
+                this.cartRepository.deleteById(currentCart.getId());
+                session.setAttribute("sum", 0);
+            }
+        } 
     }
 
 
