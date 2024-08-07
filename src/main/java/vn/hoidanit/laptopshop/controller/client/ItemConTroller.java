@@ -105,13 +105,12 @@ public class ItemConTroller {
         for (CartDetail cd : cartDetails) {
             totalPrice += cd.getPrice() * cd.getQuantity();
         }
-        
+
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("totalPrice", totalPrice);
 
         return "client/cart/checkout";
     }
-    
 
     @PostMapping("/confirm-checkout")
     public String getCheckOutPage(@ModelAttribute("cart") Cart cart) {
@@ -126,8 +125,20 @@ public class ItemConTroller {
             @RequestParam("receiverName") String receiverName,
             @RequestParam("receiverAddress") String receiverAddress,
             @RequestParam("receiverPhone") String receiverPhone) {
-        HttpSession session = request.getSession(false);
 
-        return "redirect:/";
+        User currentuser = new User(); // null
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        currentuser.setId(id);
+
+        this.productService.handlePlaceOrder(currentuser, session, receiverName, receiverAddress, receiverPhone);
+
+        return "redirect:/thanks";
     }
+    
+    @GetMapping("/thanks")
+    public String getThankYouPage(Model model) {
+        return "client/cart/thanks";
+    }
+    
 }
