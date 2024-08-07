@@ -18,6 +18,64 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String receiverName;
+
+    private String receiverAdress;
+
+    private String receiverPhone;
+    
+    private String status;
+
+
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverAdress() {
+        return receiverAdress;
+    }
+
+    public void setReceiverAdress(String receiverAdress) {
+        this.receiverAdress = receiverAdress;
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
     private double totalPrice;
 
     // user id   
@@ -29,6 +87,7 @@ public class Order {
     @OneToMany (mappedBy ="order")
     List<OrderDetail> orderDetails;
 
+    
 
     public long getId() {
         return id;
