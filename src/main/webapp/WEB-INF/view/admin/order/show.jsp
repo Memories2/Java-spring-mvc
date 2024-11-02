@@ -32,7 +32,44 @@
                                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Orders</li>
                             </ol>
-                            <div>table order</div>
+                           <div class="mt-5">
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <h3>Table Oder</h3>
+                                    </div>
+                                    <hr>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Total Price</th>
+                                                <th>User</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="order" items="orders">
+                                                <tr>
+                                                    <th>id</th>
+                                                    <th>${product.name}</th>
+                                                    <td>${product.price}</td>
+                                                    <td>${product.factory}</td>
+                                                    <td>
+                                                        <a href="/admin/product/${product.id}"
+                                                            class="btn btn-success">View</a>
+                                                        <a href="/admin/product/update/${product.id}"
+                                                            class="btn btn-warning  mx-2">Update</a>
+                                                        <a href="/admin/product/delete/${product.id}"
+                                                            class="btn btn-danger  mx-2">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                           </div>
+
                         </div>
                     </main>
                      <!--Footer-->
