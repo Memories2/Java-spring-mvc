@@ -11,8 +11,8 @@ import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
-import vn.hoidanit.laptopshop.repository.OderDetailRepository;
-import vn.hoidanit.laptopshop.repository.OderRepository;
+import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
+import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +24,12 @@ public class ProductService {
     private final CartRepository cartRepository;
     private final CartDetailRepository cartDetailRepository;
     private final UserService userService;
-    private final OderRepository oderRepository;
-    private final OderDetailRepository oderDetailRepository;
+    private final OrderRepository oderRepository;
+    private final OrderDetailRepository oderDetailRepository;
 
     ProductService(ProductRepository productRepository, CartRepository cartRepository,
-            CartDetailRepository cartDetailRepository, UserService userService, OderRepository oderRepository,
-            OderDetailRepository oderDetailRepository) {
+            CartDetailRepository cartDetailRepository, UserService userService, OrderRepository oderRepository,
+            OrderDetailRepository oderDetailRepository) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartDetailRepository = cartDetailRepository;
@@ -162,7 +162,7 @@ public class ProductService {
 
                 double sum = 0;
                 for (CartDetail cd : cartDetails) {
-                    sum += cd.getPrice();
+                    sum += cd.getPrice()*cd.getQuantity();
                 }
                 order.setTotalPrice(sum);
                 order = this.oderRepository.save(order);

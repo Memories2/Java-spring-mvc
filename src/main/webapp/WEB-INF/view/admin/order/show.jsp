@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <!DOCTYPE html>
         <html lang="en">
 
@@ -49,18 +50,28 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="order" items="orders">
+                                            <c:if test="${ empty orders}">
                                                 <tr>
-                                                    <th>id</th>
-                                                    <th>${product.name}</th>
-                                                    <td>${product.price}</td>
-                                                    <td>${product.factory}</td>
+                                                    <td colspan="6">
+                                                        Không có đơn hàng nào
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                            <c:forEach var="order" items="${orders}">
+                                                <tr>
+                                                    <th>${order.id}</th>
+                                                    <th><fmt:formatNumber type="number" value="${order.totalPrice}" /> đ
+                                                       
+                                                        
+                                                    </th>
+                                                    <td>${order.user.fullName}</td>
+                                                    <td>${order.status}</td>
                                                     <td>
-                                                        <a href="/admin/product/${product.id}"
+                                                        <a href="/admin/order/${order.id}"
                                                             class="btn btn-success">View</a>
-                                                        <a href="/admin/product/update/${product.id}"
+                                                        <a href="/admin/order/update/${order.id}"
                                                             class="btn btn-warning  mx-2">Update</a>
-                                                        <a href="/admin/product/delete/${product.id}"
+                                                        <a href="/admin/order/delete/${order.id}"
                                                             class="btn btn-danger  mx-2">Delete</a>
                                                     </td>
                                                 </tr>

@@ -26,6 +26,16 @@ public class Order {
     
     private String status;
 
+    private double totalPrice;
+
+    // user id
+    // many orders to one user
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "order")
+    private    List<OrderDetail> orderDetails;
 
 
     public String getReceiverName() {
@@ -76,16 +86,7 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    private double totalPrice;
-
-    // user id   
-    // many orders to one user
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany (mappedBy ="order")
-    List<OrderDetail> orderDetails;
+  
 
     
 
